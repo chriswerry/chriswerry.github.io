@@ -2,21 +2,77 @@
 <html>
 <body>
 
-<form id="form1">
-Name: <input name="name" type="text" size="20">
+<form id="ird_number_validator">
+IRD Number (No Spaces): <input ird_number="ird_number" type="text" size="9">
 </form>
-<button onclick="outputname()">Submit</button>
+<button onclick="validate_ird_number()">Validate</button>
 <script>
 
-function outputname() {
-var x,y,name,a,b,answer;
-x=document.getElementById("form1") ;
-y=x.elements["name"].value;
-document.getElementById("demo").innerHTML="Hello "+y+"<br>";
-document.getElementById("demo").innerHTML+=y + " is a very good tutor! <br>";
+function validate_ird_number() {
+var x,sIRDNumber,name,a,b,answer;
+x=document.getElementById("ird_number_validator") ;
+sIRDNumber=x.elements["ird_number"].value;
+
+document.getElementById("demo").innerHTML="The IRD number "+sIRDNumber+" is vlaid<br>";
 
 }
 
+
+function doNZIRDValidation( sIRDNumber )
+          { // ©Copyright. RB Lab.™. All Rights Reserved. (www.rb-lab.net)
+            // Condition(s) of Use : Please leave the Copyright line above intact.
+            //
+            // NZ IRD validation routine.
+          var aiWeight    = new Array( new Array( 2, 7, 6, 5, 4, 3, 2 ), 
+                                       new Array( 4, 3, 2, 5, 2, 7, 6 ) 
+                                     ); 
+          var bReturn     = false;  
+          var iCheckDigit = 0; 
+          var iSum        = 0;
+          
+          // Initializations. 
+          sIRDNumber = ((sIRDNumber - 0) + "" );
+    
+          // If length of IRD number is 9, first digit must be a 0.
+          // IRD number must be greater than 10000000.
+          if ((parseInt(sIRDNumber) >= 10000000) && (parseInt(sIRDNumber) <= 99999999))
+            { // Main section : Get sum of NZ IRD number.
+              iSum = doNZIRDValidation_MainRoutine(sIRDNumber, aiWeight[0]);      
+              iCheckDigit = (11 - (iSum % 11));
+              if (iCheckDigit == 10)
+                { iSum = doNZIRDValidation_MainRoutine(sIRDNumber, aiWeight[1]);        
+                  iCheckDigit = (11 - (iSum % 11));
+                  if (iCheckDigit != 10 
+                      && (sIRDNumber.substr(sIRDNumber.length-1, 1) == (iCheckDigit-"")))   
+                    { // IRD number valid.   
+                      bReturn = true; 
+                    }
+                }
+              else
+                { if (sIRDNumber.substr(sIRDNumber.length-1, 1) == (iCheckDigit-""))
+                    { // IRD number valid.
+                      bReturn = true; 
+                    }
+                }  
+            }  
+          return bReturn;
+          }   
+    
+             
+          function doNZIRDValidation_MainRoutine( sIRDNumber, aiWeight )
+          { // ©Copyright. RB Lab.™. All Rights Reserved. (www.rb-lab.net)
+            // Condition(s) of Use : Please leave the Copyright line above intact.
+            //
+            // NZ IRD validation routine - main routine.
+          var iPtr = 0 ;
+          var iSum = 0 ;
+    
+          // Main section : Get sum of NZ IRD number.
+          
+          for (iPtr=0; iPtr<=sIRDNumber.length-2; iPtr++)
+            { iSum += (parseInt(sIRDNumber.substr(iPtr, 1)) * parseInt(aiWeight[iPtr]));
+            }
+          return iSum;
 </script>
 
 
