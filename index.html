@@ -6,14 +6,16 @@
 IRD Number (No Spaces): <input ird_number="ird_number" type="text" size="9">
 </form>
 <button onclick="validate_ird_number()">Validate</button>
+
+
 <script>
 
 function validate_ird_number() {
-var x,sIRDNumber,name,a,b,answer;
+var x,sIRDNumber
 x=document.getElementById("ird_number_validator") ;
 sIRDNumber=x.elements["ird_number"].value;
 
-document.getElementById("demo").innerHTML="The IRD number "+sIRDNumber+" is vlaid<br>";
+document.getElementById("demo").innerHTML="The IRD number "+sIRDNumber+" is valid<br>";
 
 }
 
@@ -73,6 +75,7 @@ function doNZIRDValidation( sIRDNumber )
             { iSum += (parseInt(sIRDNumber.substr(iPtr, 1)) * parseInt(aiWeight[iPtr]));
             }
           return iSum;
+		  }
 </script>
 
 
