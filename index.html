@@ -15,7 +15,11 @@ var x,sIRDNumber
 x=document.getElementById("ird_number_validator") ;
 sIRDNumber=x.elements["ird_number"].value;
 
-document.getElementById("demo").innerHTML="The IRD number "+sIRDNumber+" is valid<br>";
+if (doNZIRDValidation( sIRDNumber )) {
+    document.getElementById("demo").innerHTML="The IRD number "+sIRDNumber+" is valid<br>";
+} else { 
+    document.getElementById("demo").innerHTML="The IRD number "+sIRDNumber+" is invalid<br>";
+}
 
 }
 
